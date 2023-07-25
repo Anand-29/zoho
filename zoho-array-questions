@@ -1,0 +1,1087 @@
+
+Question 1: 
+Given two sorted arrays output a merged array without duplicates.
+Input:
+Array1: [1, 2, 3, 6, 9]
+Array2: [2, 4, 5, 10]
+Output:
+Merged Array: [1, 2, 3, 4, 5, 6, 9, 10]
+//We solved it in Hashing Technique.
+//You must solve it in another way => Home work don’t do it in Hashing  
+Question 2: 
+Given a sliding window of size k print the maximum of the numbers under the sliding window.
+Example: Consider a sliding window of size k equals 3. Let the array be [3,2,7,6,5,1,2,3,4] the output should print 7 as the first output as first window contains {3,2,7} and second window contains {2,7,6} and so on 
+Expected Output:
+7 7 7 6 5 3 4
+#include<stdio.h>
+int main() {
+  int n;
+  scanf("%d",&n);
+  int A[n];
+  for(int i=0;i<n;i++){
+    scanf("%d",&A[i]);
+  }
+  int k;
+  scanf("%d",&k);
+  for(int i=0,j=k-1;j<n;i++,j++){
+     int max = A[i];
+     for(int h=i+1;h<=j;h++){
+        if(max<A[h])
+          max = A[h];
+     }
+     printf("%d ",max);
+  }
+  return 0;
+}
+
+Question 3: 
+Given an array with n elements print the number of occurrences of that number each number in that array. The order of number doesn’t matter. You can reorder the elements.
+Example :
+Sample Input:
+ [2,1,3,2,2,5,8,9,8]
+Output:
+2 – 3
+1 – 1
+3 – 1
+5 – 1
+8 – 2
+9 – 1
+Question 4:
+
+Alternately sort an unsorted array..
+Input: {5,2,8,7,4,3,9}
+Output: {9,2,8,3,7,4,5}
+#include<stdio.h>
+int main(){
+  int n;
+  scanf("%d",&n);
+  int A[n];
+  for(int i=0;i<n;i++){
+    scanf("%d",&A[i]);
+  }
+  int max1=A[0];//This is for replace purpose...
+  for(int i=1;i<n;i++){
+    if(max1<A[i])
+      max1 = A[i];
+  }
+  int y = max1+1;
+  int k = n/2;
+  //Algorithm:
+  while(k){
+    int max=0;//3
+    int index = 0;//0
+    for(int i=0;i<n;i++){//Checking the non y value as maximum value
+       if(A[i]!=y){
+         max = A[i];
+         index = i;
+         break;
+       }
+    }
+    for(int i=index+1;i<n;i++){//Finding maximum
+      if(max<A[i] && A[i]!=y){
+         max = A[i];
+         index=i;
+      }
+    }
+    printf("%d ",max);
+    A[index] = y;
+    int min=A[0];
+    int index1=0;
+    for(int i=1;i<n;i++){//Finding minimum
+      if(min>A[i]){
+        min = A[i];
+        index1=i;
+      }
+    }
+    printf("%d ",min);
+    A[index1] = y;
+    k--;
+  }
+  if(n%2==1){//For odd element remaining 1 element
+    for(int i=0;i<n;i++){
+      if(A[i]!=y){
+        printf("%d",A[i]);
+      }  
+    }
+  }
+  return 0;
+}
+Question 5:
+
+Given an array and a threshold value find the o/p
+eg) i/p {5,8,10,13,6,2};threshold = 3;
+o/p  count = 17
+Explanation:
+Number	parts	            counts
+5	            {3,2}                 2
+8                     {3,3,2}              3
+10                   {3,3,3,1}          4 
+13                   {3,3,3,3,1}        5
+6                     {3,3}                 2
+2                     {2}                    1 
+
+#include<stdio.h>
+int main(){
+  int n;
+  scanf("%d",&n);
+  int A[n];
+  for(int i=0;i<n;i++){
+    scanf("%d",&A[i]);
+  }
+  int threshold;
+  scanf("%d",&threshold);
+  
+  //5 8 10 13 6 2
+  int count=0;//5
+  for(int i=0;i<n;i++){
+    int k = A[i];//8
+    int y = k/threshold;//8/3 = 2
+    count = count+y;//
+    int d = k%threshold;//2
+    if(d!=0){
+       count=count+1;
+    }
+  }
+  printf("%d",count);  
+  return 0;
+}
+Question 6:
+
+You’re given an array. Print the elements of the array which are greater than its previous elements in the array.
+Input: 2, -3, -4, 5, 9, 7, 8    
+Output: 2 5 9
+
+
+#include<stdio.h>
+int main(){
+  int n;
+  scanf("%d",&n);
+  int A[n];
+  for(int i=0;i<n;i++){
+    scanf("%d",&A[i]);
+  }
+  
+  int max = A[0];
+  printf("%d ",max);
+  for(int i=1;i<n;i++){
+    int y = A[i];
+    if(y>max){
+      printf("%d ",y);
+      max = y;
+    }
+  }
+  
+  return 0;
+}
+
+Question 7:
+
+Given an array, find the minimum of all the greater numbers for each element in the array.
+Sample: 
+Array: {2, 3, 7, 1, 8, 5, 11} 	
+Output: 
+{2>3, 3>5, 7>8, 1>2, 8>11, 5>7, 11>} 
+#include<stdio.h>
+int main() {
+  int n;
+  scanf("%d",&n);
+  int A[n];
+  for(int i=0;i<n;i++){
+    scanf("%d",&A[i]);
+  }
+  int max=A[0];
+  for(int i=0;i<n;i++){
+     if(max<A[i])
+       max = A[i];
+  }
+  for(int j=0;j<n;j++){
+    int a = A[j];
+    int b=max;
+    for(int i=0;i<n;i++){
+      if(A[i]>a && A[i]<b){
+        b = A[i];
+      }
+    }
+    if(a!=b){//Remaining elements
+      printf("%d>",a);
+      printf("%d",b);
+      printf(",");
+    }
+    else if(a==b){//This match only at maximum element....
+      printf("%d>",a);
+      printf(",");
+    }
+  }
+  return 0;
+}
+
+Method:
+
+#include<stdio.h>
+int main() {
+  int n;
+  scanf("%d",&n);
+  int A[n];
+  for(int i=0;i<n;i++){
+    scanf("%d",&A[i]);
+  }
+  //1. Process
+  int max=A[0];
+  for(int i=0;i<n;i++){
+     if(max<A[i])
+       max = A[i];
+  }
+  //2. New array
+  int B[max+1];
+  //3.All elements zero
+  for(int i=0;i<(max+1);i++){
+     B[i] = 0;
+  }
+  //4.Hashing Process
+   for(int i=0;i<n;i++){
+     int k = A[i];
+     B[k]++;
+  }
+  //5.Result
+  for(int i=0;i<n;i++){
+     int k = A[i];
+     printf("%d>",k);
+     int j = k+1;
+     for(;j<(max+1);j++){
+       if(B[j]!=0){
+         printf("%d",j);
+         break;
+       }
+     }
+     printf(",");
+  }
+  return 0;
+}
+
+Question 8:
+
+
+Find the largest sum contiguous sub array which should not have negative numbers. We have to print the sum and the corresponding array elements which brought up the sum.
+Sample: 
+Array: {2, 7, -5, 1, 3, 2, 9, -7} 
+Output: 
+Sum: 15
+Elements: 1, 3, 2, 9  
+#include<stdio.h>
+int main() {
+  int n;
+  scanf("%d",&n);
+  int A[n];
+  for(int i=0;i<n;i++){
+    scanf("%d",&A[i]);
+  }
+  int y=0;int index=0;
+  int sum=0; 
+  int max=0;  
+  int start=0; 
+  int count=0;
+  for(int i=0;i<n;i++){
+    if(A[i]>=0){
+       sum = sum+A[i];
+       if(count==0){
+         start = i;
+         count++;
+       }
+    }
+    else{
+      if(max<sum){
+        max = sum;
+        y = start;
+        index = i-1;
+      }
+      sum=0;
+      count=0;
+    }
+  }
+  printf("%d\n",max);
+  for(int i=y;i<=index;i++){
+     printf("%d ",A[i]);
+  }
+  return 0;
+}
+//5 3 4 7 6 2 5
+Question 9:
+
+Adding 2 numbers
+Given 2 huge numbers as separate digits, store them in array and process them and calculate the sum of 2 numbers and store the result in an array and print the sum.
+Input:
+Number of digits: 12
+9 2 8 1 3 5 6 7 3 1 1 6
+Number of digits: 9
+7 8 4 6 2 1 9 9 7
+Output:
+9 2 8 9 2 0 2 9 5 1 1 3
+
+#include<stdio.h>
+int main() {
+  int n1;
+  int n2;
+  scanf("%d%d",&n1,&n2);
+  int A[n1];
+  int B[n2];
+  for(int i=0;i<n1;i++){
+    scanf("%d",&A[i]);
+  }
+  for(int i=0;i<n2;i++){
+    scanf("%d",&B[i]);
+  }
+  //Algorithm for this problem
+  long sum1=0;
+  for(int i=0;i<n1;i++){//First array appending process
+    sum1 = (sum1*10)+A[i];
+  }
+  long sum2=0;
+  for(int i=0;i<n2;i++){///Second array appending process
+    sum2 = (sum2*10)+B[i];
+  }
+  long sum3 = sum1+sum2;//Addition of both values
+  long m = sum3;//assigning the sum3 to m vavraible
+  int digit=0;
+  while(m){//Finding the no. of digits in the result
+    digit++;
+    m=m/10;
+  }
+  printf("%d\n",digit);
+  int C[digit];//Declaring the new with digit as the size...
+  int j=digit-1;
+  while(sum3){//Taking the remainder value and place in the array C in reverse 
+    int y = sum3%10;
+    C[j] = y;
+    j--;
+    sum3 = sum3/10;
+  }
+  for(int i=0;i<digit;i++){//Print the array C
+     printf("%d ",C[i]);
+  }
+  return 0;
+}
+//9 2 8 9 2 0 2 9 5 1 1 3
+
+Question 10:
+
+Given sorted array check if two numbers sum in it is a given value
+Input
+Array = {1 3 4 8 10} N = 18
+Output
+True
+#include<stdio.h>
+int main() {
+  int n;
+  scanf("%d",&n);
+  int A[n];
+  for(int i=0;i<n;i++){
+    scanf("%d",&A[i]);
+  }
+  int N;
+  scanf("%d",&N);
+  //Algorithm => Time o(n^2)
+  for(int i=0;i<(n-1);i++){
+    int sum=0;
+    int k=A[i];
+    sum = sum+k;
+    int count=0;
+    for(int j=i+1;j<n;j++){
+      sum = sum+A[j];
+      if(N==sum){
+        printf("true");
+        count++;
+        break;
+      }
+    }
+    if(count!=0)
+     break;
+  }
+  return 0;
+}
+
+
+
+
+Question 11:
+Given array find maximum sum of contiguous sub array
+{-2 -3 4 -1 -2 1 5 -3}
+output 7
+elements [ 4 -1 -2 1 5]
+#include<stdio.h>
+int main() {
+  int n;
+  scanf("%d",&n);
+  int A[n];
+  for(int i=0;i<n;i++){
+     scanf("%d",&A[i]);
+  }
+  int start = 0;
+  int end = 0;
+  int max=A[0];
+  for(int i=0;i<n;i++){
+    int sum=A[i];
+    if(max<sum){
+      max = sum;
+      start = i;
+      end = i;
+    }
+    for(int j=i+1;j<n;j++){
+      sum = sum+A[j];
+      if(max<sum){
+        max = sum;
+        start = i;
+        end = j;
+      }
+    }
+  }
+  printf("%d\n",max);
+  for(int h=start;h<=end;h++){
+    printf("%d ",A[h]);
+  }
+  return 0;
+}
+Question 12:
+
+Given unsorted array find all combination of the element for a given sum. Order should be maintained.
+Input:
+8 3 4 7 9 
+N=7
+Output
+{3 4 } {7}
+#include<stdio.h>
+int main() {
+  int n;
+  scanf("%d",&n);
+  int A[n];
+  for(int i=0;i<n;i++){
+    scanf("%d",&A[i]);
+  }
+  int N;
+  scanf("%d",&N);
+  //Algorithm => Time o(n^2)
+  for(int i=0;i<(n-1);i++){
+    int sum=0;
+    int k=A[i];
+    sum = sum+k;
+    int count=0;
+    for(int j=i+1;j<n;j++){
+      sum = sum+A[j];
+      if(N==sum){
+     //   printf("true");
+        printf("%d ",k);
+        printf("%d",A[j]);
+        count++;
+      }
+    }
+Printf(“\n”);
+  }
+  return 0;
+}
+
+Question 13:
+
+Sum of two numbers represented as arrays 
+Given two numbers represented by two different arrays A and B. The task is to find the sum array. The sum array is an array representation of addition of two input arrays.
+Example 1:
+Input: N = 3, M = 3
+A[] = {5, 6, 3}
+B[] = {8, 4, 2}
+Output: 1 4 0 5
+Explanation: As 563 + 842 = 1405.
+Example 2:
+Input: N = 6, M = 4 
+A[] = {2, 2, 7, 5, 3, 3}
+B[] = {4, 3, 3, 8}
+Output: 2 3 1 8 7 1
+Explanation: As 227533 + 4338 = 231871.
+Your Task:  
+You don't need to read input or print anything. Your task is to complete the function findSum() which takes the array(vector) of integers a and b as parameters and returns an array denoting the answer.
+Expected Time Complexity: O(max(N, M))
+Expected Auxiliary Space: O(1)
+Constraints:
+1 ≤ N ≤ M ≤ 106
+0 ≤ Ai, Bi ≤ 9
+No leading zeroes in array A and B.
+This is similar to 9th problem.
+Question 14:
+
+
+Find the second maximum among the given numbers.
+  Ex.  INPUT  :  
+    Size of Array    :  8
+    Enter the elements  :  2 5 1 6 2 6 7 10
+    OUTPUT  :
+    7
+  Ex.  INPUT  :
+    Size of Array    :  4
+    Enter the elements  :  4 1 2 2
+    OUTPUT  :
+    2
+  Ex.  INPUT  :
+    Size of Array    :  1
+    Enter the elements  :  1  
+    OUTPUT  :
+    No second maximum
+Similar to 2nd minimum
+Question 15:
+
+Given an array of positive numbers. Print the numbers which have longest continuous range.
+   INPUT:  
+    Enter array size:  8
+    Enter array elements:  1 3 10 7 9 2 4 6
+    OUTPUT:
+    1 2 3 4
+   INPUT:
+    Enter array size:  8
+    Enter array elements:  1 3 9 7 8 2 4 6
+    OUTPUT:
+    1 2 3 4
+    6 7 8 9
+Program:
+#include<stdio.h>
+int main() {
+  int n;
+  scanf("%d",&n);
+  int A[n];
+  for(int i=0;i<n;i++){
+    scanf("%d",&A[i]);
+  }
+  int max1=A[0];
+  for(int i=1;i<n;i++){
+    if(max1<A[i])
+      max1 = A[i];
+  }
+  int B[max1+1];
+  for(int i=0;i<(max1+1);i++){
+    B[i] = 0;
+  }
+  for(int i=0;i<n;i++){
+    B[A[i]]++;
+  }
+  int max=0;int count=0;
+  for(int i=0;i<(max1+1);i++){
+     if(B[i]>0){
+       count++;
+     }
+     else{
+       if(max<count){
+         max = count;
+       }
+       count=0;
+     }
+     if(i==max1){
+       if(max<count){
+         max = count;
+       }
+     }
+  }
+  count=0;
+  for(int i=0;i<(max1+1);i++){
+     if(B[i]>0){
+       count++;
+     }
+     else{
+       if(max==count){
+         for(int h=i-count;h<i;h++){
+           printf("%d ",h);
+         }
+         printf("\n");
+       }
+       count=0;
+     }
+     if(i==max1){
+       if(max==count){
+         for(int h=i+1-count;h<=i;h++){
+          printf("%d ",h);
+         }
+         printf("\n");
+       }
+     }
+  }
+  return 0;
+}
+
+
+
+Question 16:
+
+
+Given two arrays. Find its union.
+  Input : 
+  Enter size of first array:  6
+  Enter the elements    :  1 2 3 4 5 3
+  Enter size of second array:  4
+  Enter the elements    :  1 2 7 5
+  OUTPUT:
+  1 2 3 4 5 7
+This can be solved by using Hashing Technique:
+Question 17:
+
+Given an array of numbers. Print the numbers without duplication.
+  INPUT:  
+  Enter the array size:  4
+  Enter the elements:  1 1 2 4
+  OUTPUT:
+  1 2 4 
+This can be solved in Hashing Technique, but you should not use hashing…
+Use duplicate Method 1, which I solved it already…..
+
+
+
+
+Question 18:
+
+Given an array of numbers and a number k. Print the maximum possible k digit number which can be formed using given numbers.
+ INPUT:  
+  Enter the array size:  4
+  Enter the elements:  1 4 973 97
+  Enter number of digits:  3
+ OUTPUT:
+  974 
+INPUT:  
+  Enter the array size:  6
+  Enter the elements:  1 4 89 73 9 7
+  Enter number of digits:  5
+  OUTPUT:
+  98973
+Question 19:
+Given an array of numbers and a window of size k. Print the maximum of numbers inside the window for each step as the window moves from the beginning of the array.
+INPUT:
+  Enter the array size:  8
+  Enter the elements  :  1,3,5,2,1,8,6,9
+  Enter the window size:  3
+OUTPUT:
+  5 5 5 8 8 9
+Solved already
+Question 20:
+
+Find the extra element and its index
+Input:   [10, 20, 30, 12, 5]
+             [10, 5, 30, 20]
+Output: 12 is the extra element in array 1 at index 3
+Input:   [-1, 0, 3, 2]
+             [3, 4, 0, -1, 2]
+Output: 4 is the extra element in array 2 at index 1
+Program 1:
+#include<stdio.h>
+int main() {
+  int n1;
+  int n2;
+  scanf("%d%d",&n1,&n2);
+  int A[n1];
+  int B[n2];
+  for(int i=0;i<n1;i++){
+    scanf("%d",&A[i]);
+  }
+  for(int i=0;i<n2;i++){
+    scanf("%d",&B[i]);
+  }
+  if(n1>n2){
+    for(int i=0;i<n1;i++){
+      int k = A[i];
+      int count = 0;
+      for(int j=0;j<n2;j++){
+        if(k==B[j]){
+          count++;
+          break;
+        }
+      }
+      if(count==0){
+          printf("%d - %d",k,i);
+          break;
+      }
+    }
+  }
+  else{
+    for(int i=0;i<n2;i++){
+      int k = B[i];
+      int count = 0;
+      for(int j=0;j<n1;j++){
+        if(k==A[j]){
+          count++;
+          break;
+        }
+      }
+      if(count==0){
+          printf("%d - %d",k,i);
+          break;
+      }
+    }  
+  }
+  return 0;
+}
+Program:2
+#include<stdio.h>
+int main() {
+  int n1;
+  int n2;
+  scanf("%d%d",&n1,&n2);
+  int A[n1];
+  int B[n2];
+  for(int i=0;i<n1;i++){
+    scanf("%d",&A[i]);
+  }
+  for(int i=0;i<n2;i++){
+    scanf("%d",&B[i]);
+  }
+  int min1=A[0];
+  for(int i=0;i<n1;i++){
+    if(min1>A[i])
+      min1=A[i];
+  }
+  int min2=B[0];
+  for(int i=0;i<n2;i++){
+    if(min2>B[i])
+      min2=B[i];
+  }
+  int min=0;
+  if(min1<min2)
+    min = min1;
+  else
+    min = min2;
+  int y = -min;
+  int max1=A[0];
+  for(int i=0;i<n1;i++){
+    if(max1<A[i])
+      max1=A[i];
+  }
+  int max2=B[0];
+  for(int i=0;i<n2;i++){
+    if(max2<B[i])
+      max2=B[i];
+  }
+  int max = 0;
+  if(max1>max2)
+    max = max1;
+  else
+    max = max2;
+  int C[max+1+y];
+  for(int i=0;i<(max+1+y);i++){
+     C[i]=0;
+  }
+  for(int i=0;i<n1;i++){
+    int k = A[i];
+    C[k+y]++;
+  }
+  for(int i=0;i<n2;i++){
+    int k = B[i];
+    C[k+y]++;
+  }
+  int element = 0;
+  for(int i=0;i<(max+y+1);i++){
+     if(C[i]==1){
+       element = i-y;
+       break;
+     }
+  }
+  printf("%d",element);
+  if(n1>n2){
+    for(int i=0;i<n1;i++){
+      if(element==A[i]){
+        printf(" is the extra element in array 1 at index %d",i);
+      }
+    } 
+  }
+  else{
+     for(int i=0;i<n2;i++){
+      if(element==B[i]){
+        printf(" is the extra element in array 2 at index %d\n",i);
+      }
+    }  
+  }
+  return 0;
+}
+
+Question 21:
+
+Find the least prime number that can be added with first array element that makes them divisible by second array elements at respective index (check for prime numbers under 1000, if exist return -1 as answer) & (Consider 1 as prime number)
+Input: [20, 7]
+           [11, 5]
+Output:[2, 3]
+Explanation: 
+(20 + ?) % 11 =>(20+2%11)=> 22%11 = 0
+( 7 + ?) % 5 => (7+3)%5 = 0
+
+Program:
+#include<stdio.h>
+int main(){
+  int n;
+  scanf("%d",&n);
+  int A[n];
+  int B[n];
+  for(int i=0;i<n;i++){
+    scanf("%d",&A[i]);
+  }
+  for(int i=0;i<n;i++){
+    scanf("%d",&B[i]);
+  }
+  
+  for(int i=0;i<n;i++){
+    if((A[i]+1)%B[i]==0)
+      printf("1 ");
+    else if((A[i]+2)%B[i]==0)
+      printf("2 ");
+    else{
+      for(int j=3;j<1001;j++){
+        int count=0;
+        for(int k=2;k<j;k++){
+          if(j%k==0){//it works means the number is not a prime number
+            count++;
+            break;
+          }
+        }
+        if(count==0){
+          if(((A[i]+j)%B[i])==0){
+            printf("%d ",j);
+          }
+          break;
+        }
+      }
+    }
+  }
+  return 0;
+}
+
+
+
+
+Question 22:
+
+Sort the array elements in descending order according to their frequency of occurrence
+Input : [ 2 2 3 4 5 12 2 3 3 3 12 ]
+Output : 3 3 3 3 2 2 2 12 12 4 5
+//2 2 2 3 3 3 3 4 5 12 12 = Sorting..
+//2O(n^2)
+Explanation : 3 occurred 4 times, 2 occurred 3 times, 12 occurred 2 times, 4 occurred 1 time, 5 occurred 1 time
+Input:  0 -1 2 1 0 
+Output: 0 0 -1 1 2
+Program:
+After sorting the given array.
+#include<stdio.h>
+//Array should be sorted....
+int main(){
+ int n;
+ scanf("%d",&n);
+ int A[n];
+ for(int i=0;i<n;i++){
+   scanf("%d",&A[i]);
+ }
+ int B[n];
+ for(int i=0;i<n;i++){
+   B[i]=0;
+ }
+ for(int i=0;i<n;){//O(n)
+   int k = A[i];
+   int count=1;
+   int j=i+1;
+   for(;j<n;j++){
+     if(k==A[j])
+       count++;
+     else
+       break;
+   }
+   B[i] = count;
+   i=j;
+ }
+  for(int j=0;j<n;j++){//O(n^2)
+   int max = B[0];
+   int index=0;
+   for(int i=1;i<n;i++){
+      if(max<B[i]){
+        max = B[i];
+        index = i;
+      }
+   }
+    int y = A[index];
+    for(int k=0;k<max;k++){
+      printf("%d ",y);
+    }
+    B[index] = 0;
+  }
+  return 0;
+}
+
+
+Second Method (Less Time complexity):
+
+#include<stdio.h>
+int main() {
+   int n;
+   scanf("%d",&n);
+   int a[n];
+   for(int i=0;i<n;i++){
+       scanf("%d",&a[i]);
+   }
+   
+   int min=0;
+   for(int i=0;i<n;i++){//finding minimum
+       if(a[i]<min){
+       min=a[i];
+       }
+   }
+   int y=-min,max=0;
+   for(int i=0;i<n;i++){//finding maximum
+       if(max<a[i]){
+           max=a[i];
+       }
+   }
+   int b[max+y+1];//new array declaration...
+   
+   for(int i=0;i<(max+y+1);i++){//Entire array zero
+       b[i]=0;
+   }
+   for(int i=0;i<n;i++){//Hashing process
+       int k=a[i];
+       b[k+y]++;
+   }
+   int bmax=b[0];//finding maximum new array b
+   for(int i=0;i<max+y+1;i++){
+       if(b[i]>bmax){
+           bmax=b[i];
+       }
+   }
+   
+   while(bmax>0){//printing the elements
+       for(int i=0;i<max+y+1;i++){//
+           if(b[i]==bmax){
+               for(int x=1;x<=bmax;x++)4
+               printf("%d ",i-y);
+           }
+       }
+       bmax--;
+   }
+}
+
+Question 23:
+
+Sort the array alternately i.e first element should be max value, second min value, third second max, third second min. 
+Eg: 
+arr[] = {1,2,3,4,5,6,7} 
+O/P: {7,1,6,2,5,3,4} 
+Note: no extra space and time complexity should be less
+Already solved it
+
+Question 24: (you can solve it)
+
+Find the union intersection of two list and also find except (remove even elements from list1 and odd elements from list2)
+Input
+List 1: 1,3,4,5,6,8,9 
+List 2: 1,5,8,9,2
+Output:
+Union: 1,3,4,5,6,8,9,2
+Intersection: 1,5,8,9
+Except: 1,3,5,9,8,2 
+Question 25:
+
+Input:
+8
+4 3 5 6 7 8 1 9
+K = 2
+Output:
+4 3 1 9 5 6 7 8
+Input 2:
+11
+4 3 5 6 7 8 1 9 7 2 1
+K = 3
+Output:
+2 1 4 3 5 1 9 7 6 7 8
+
+#include<stdio.h>
+int main() {
+  int n;
+  scanf("%d",&n);
+  int A[n];
+  for(int i=0;i<n;i++){
+    scanf("%d",&A[i]);
+  }
+  int k;
+  scanf("%d",&k);
+  int z = n%k;
+  for(int i=n-z;i<n;i++){
+    printf("%d ",A[i]);
+  }
+  int h = (n/k)/2;
+  int s1=0;int e1=k-1;
+  int s2=n-k-z; int e2=n-1-z;
+  while(h){
+    for(int i=s1;i<=e1;i++){
+      printf("%d ",A[i]);
+    }  
+    for(int i=s2;i<=e2;i++){
+      printf("%d ",A[i]);
+    } 
+    s1=s1+k;e1=e1+k;
+    s2=s2-k;e2=e2-k;
+    h--;
+  }
+  if(e1==e2 && s1==s2){
+    for(int i=s1;i<=e1;i++){
+      printf("%d ",A[i]);
+    } 
+  }
+  return 0;
+}
+//5 2 4 3 5 7 8 1 2 6 5
+Question 26:
+
+Write a program to find the duplicate numbers in an array and their occurrences.
+Store the duplicate numbers in a separate array and print the output.
+Input : [ 1, 2, 4, 5, 2, 1, 5, 2, 10, 22, 5 ]
+Output:
+1 -> 2
+2 -> 3
+5 -> 3
+
+Already solved it
+Question 27:
+
+Find the occurrence of a number and display the values in ascending order of the given input
+input  3 4 3 4 1 2 3 1 2
+Output 2 2 3 2
+Explanation:
+1 = 2 times
+2 =  2 times
+3 = 3 times
+4 = 2 times
+Output: 2 2 3 2
+
+Already solved it
+
+
+Question 28:
+
+Replace every element with the greatest element on right side. Given an array of integers, replace every element with the next greatest element (greatest element on the right side) in the array. Since there is no element next to the last element, replace it with -1. For example, if the array is 
+{16, 17, 4, 3, 5, 2}, then it should be modified to {17, 5, 5, 5, 2, -1}.
+You can solve it.
+#include<stdio.h>
+int main() {
+  int n;
+  scanf("%d",&n);
+  int A[n];
+  for(int i=0;i<n;i++){
+    scanf("%d",&A[i]);
+  }
+  for(int i=0;i<(n-1);i++){
+    int max = A[i+1];
+    for(int j=i+2;j<n;j++){
+      if(max<A[j])
+        max = A[j];
+    }
+    A[i] = max;
+  }
+  A[n-1] = -1;
+  for(int i=0;i<n;i++){
+    printf("%d ",A[i]);
+  }
+}
+//17 5 5 5 2 -1
+Question 29: 
+
+Input: 
+8
+4 5 3 6 7 2 8 7
+3
+Output:
+3 5 4 2 7 6 7 8
+Note: You must use the same array, cannot create the other array.
+Already solved
